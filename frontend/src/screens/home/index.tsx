@@ -73,8 +73,9 @@ export default function Home() {
   const [dictOfVars, setDictOfVars] = useState({});
   const dpr = window.devicePixelRatio || 1;
   const [isErasing, setIsErasing] = useState(false);
-  const [eraserSize, setEraserSize] = useState(12);
-
+  const [eraserSize, setEraserSize] = useState<number>(10);
+  // If setEraserSize is not used, replace it:
+  const [eraserSize] = useState<number>(10);
   // Load MathJax
   useEffect(() => {
     const script = document.createElement('script');
@@ -147,7 +148,8 @@ export default function Home() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvasRef.current?.getContext('2d');
+    // If ctx is unused, just remove the line.
     const imageData = canvas.toDataURL('image/png');
 
     try {
